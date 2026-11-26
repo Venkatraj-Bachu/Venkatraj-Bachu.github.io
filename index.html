@@ -1,124 +1,229 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <title>Venkatraj Bachu</title>
-  </head>
-  <body>
-
-    <nav id="navbar" class="nav">
-      <ul class="nav-list">
-        <li>
-          <a href="#welcome-section">About</a>
-        </li>
-        <li>
-          <a href="#skills">Skills</a>
-        </li>
-        <li>
-          <a href="#contact">Contact Me</a>
-        </li>
-      </ul>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Venkatraj Bachu, Software Engineer 2.">
+  <title>Venkatraj Bachu | Software Engineer 2</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, system-ui, sans-serif;
+      background: #101b2a;
+      color: #f7f5ef;
+      --accent: #a9cfca;
+      --rule: #415666;
+      --muted: #c6d1d9;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    .shell { width: min(100% - 3rem, 68rem); margin-inline: auto; }
+    a { color: var(--accent); text-underline-offset: .3em; }
+    a:hover { color: #fff; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding-block: 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    nav a { font-size: .95rem; }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(2rem, 6vw, 5rem);
+      padding-block: clamp(3rem, 8vw, 7rem);
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 {
+      font-size: clamp(2.75rem, 7vw, 6.5rem);
+      line-height: 1;
+      letter-spacing: -.065em;
+    }
+    .title { margin-top: 1rem; color: var(--accent); font-size: 1.25rem; }
+    .bio { position: relative; margin-top: 1.75rem; }
+    .bio p {
+      font-family: "IBM Plex Mono", Consolas, monospace;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .bio p + p { margin-top: 1rem; }
+    .bio.is-typing > p { opacity: 0; }
+    .typing { position: absolute; inset: 0; }
+    .typing p::after {
+      content: "";
+      display: inline-block;
+      width: .5em;
+      height: 1em;
+      margin-left: .15em;
+      vertical-align: -.15em;
+      background: var(--accent);
+      animation: blink .8s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    button {
+      margin-top: 1rem;
+      padding: .5rem .75rem;
+      border: 1px solid var(--rule);
+      border-radius: .3rem;
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      cursor: pointer;
+    }
+    button:hover { background: #203447; }
+    .portrait {
+      width: 100%;
+      max-width: 25rem;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: .5rem;
+      border: 1px solid var(--rule);
+      background: #203447;
+    }
+    .section {
+      padding-block: clamp(2rem, 5vw, 4rem);
+      border-top: 1px solid var(--rule);
+    }
+    h2 { margin-bottom: 1.5rem; font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -.045em; }
+    h3 { font-size: 1.25rem; }
+    .role { margin-top: .5rem; line-height: 1.6; color: var(--accent); }
+    .dates { margin-top: .25rem; color: var(--muted); }
+    .accomplishments { padding-left: 1.25rem; max-width: 75ch; line-height: 1.7; }
+    .accomplishments li + li { margin-top: .75rem; }
+    .technologies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin: 1.5rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .technologies li {
+      padding: .4rem .65rem;
+      border: 1px solid var(--rule);
+      border-radius: .35rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+      a, button { transition: color .18s, background-color .18s; }
+    }
+    @media (max-width: 47rem) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas: "identity portrait" "bio bio";
+        gap: 1.75rem 1rem;
+      }
+      .hero-copy { display: contents; }
+      .identity { grid-area: identity; }
+      h1 { font-size: clamp(2rem, 8vw, 3.75rem); }
+      .bio { grid-area: bio; margin-top: 0; }
+      .portrait {
+        grid-area: portrait;
+        width: clamp(4rem, 20vw, 7rem);
+        aspect-ratio: 1;
+        border-radius: 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <nav aria-label="Main navigation">
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
     </nav>
-    <div class="links">
-      <a class="icon" href="https://www.linkedin.com/in/b-venkat/" target="_blank"><i class="fa fa-linkedin fa_custom"></i></a>
-      <a class="icon" href="https://instagram.com/venkatraj07" target="_blank"><i class="fa fa-instagram" style="font-size:30px"></i></a>
+  </header>
 
-    </div>
-
-    <section id="welcome-section" class="welcome-section">
-      <img id="profile-picture" src="myPic.JPG" alt="profile-picture-corrupted">
-
-      <h1>Venkatraj Bachu</h1>
-
-      <p>Software Development Engineer | Machine Learning Engineer</p>
-      <p id="bio">Hi! I'm a Computer Science graduate with a Master's degree,
-        equipped with a strong foundation in software development and data
-        science. Experienced in developing applications, implementing machine
-        learning solutions seeking opportunities to leverage my expertise in a
-        dynamic and innovative environment.</p>
-      <div class="buttons">
-
+  <main class="shell">
+    <section class="hero" aria-labelledby="name">
+      <div class="hero-copy">
+        <header class="identity">
+          <h1 id="name">Venkatraj Bachu</h1>
+          <p class="title">Software Engineer 2</p>
+        </header>
+        <div class="bio">
+          <p id="intro" tabindex="-1">I'm a Software Engineer who enjoys solving complex problems and building simple, scalable solutions. My expertise spans backend engineering, distributed systems, cloud technologies, and occasionally convincing legacy systems to cooperate.</p>
+          <p>Beyond the codebase, I'm an explorer at heart — always up for a mountain hike, a spontaneous road trip, or a good conversation over coffee. Curiosity is my default setting, both in engineering and in life.</p>
+          <div class="typing" hidden>
+            <p aria-hidden="true"></p>
+            <button type="button">Skip animation</button>
+          </div>
+        </div>
       </div>
+      <img class="portrait" src="./myPic.png" alt="Portrait of Venkatraj Bachu">
     </section>
 
-    <section id="skills" class="skills-section">
-      <h2 class="skills-section-header">My Skills</h2>
-      <div class="skills-container">
-        <fieldset id="individual-skills">
-          <h3>Programming Languages</h3>
-          <ul id="languages">
-            <li>Python</li>
-            <li>C</li>
-            <li>Java</li>
-            <li>Shell Scripting</li>
-          </ul>
-        </fieldset>
-        <fieldset>
-          <h3>Web Technologies</h3>
-          <ul id="languages">
-            <li>Django</li>
-            <li>Flask</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>React</li>
-          </ul>
-        </fieldset>
-        <fieldset>
-          <h3>Data Engineering Tools</h3>
-          <ul id="languages">
-            <li>Apache NiFi</li>
-            <li>Amazon Redshift</li>
-            <li>Google BigQuery</li>
-            <li>Power BI</li>
-            <li>Tableau</li>
-          </ul>
-        </fieldset>
-        <fieldset>
-          <h3>Data Science and Machine Learning</h3>
-          <ul>
-            <li>TensorFlow</li>
-            <li>Scikit-Learn</li>
-            <li>Keras</li>
-            <li>NumPy</li>
-            <li>Pandas</li>
-          </ul>
-        </fieldset>
-        <fieldset>
-          <h3>Cloud Technologies</h3>
-          <ul>
-            <li>AWS</li>
-            <li>Microsoft Azure</li>
-            <li>GCP</li>
-          </ul>
-        </fieldset>
-      </div>
+    <section class="section" id="experience" aria-labelledby="experience-heading">
+      <h2 id="experience-heading">Experience</h2>
+      <h3>Bank of America</h3>
+      <p class="role">Software Engineer II · Contract</p>
+      <p class="dates">Nov 2024 – Present</p>
+      <ul class="accomplishments">
+        <li><strong>Infrastructure management and automation.</strong> Took an infrastructure management platform from requirements to production, owning the database design, REST APIs, and frontend. Integrated HashiCorp Vault to automate credential management and password rotation, reducing manual work and strengthening security.</li>
+        <li><strong>Risk monitoring and reporting.</strong> Built a centralized platform for monitoring risk metrics and reporting breaches. Automated reports and notifications so teams could spend less time gathering data and more time acting on it.</li>
+      </ul>
+      <ul class="technologies" role="list" aria-label="Technologies">
+        <li>Python</li>
+        <li>Flask</li>
+        <li>Angular</li>
+        <li>SQL Server</li>
+        <li>HashiCorp Vault</li>
+        <li>Jenkins</li>
+        <li>AutoSys</li>
+        <li>REST APIs</li>
+      </ul>
     </section>
 
-    
-
-
-    <section id="contact" class="contact-section">
-      <div class="contact-section-header">
-        <h2>Let's work together...</h2>
-      </div>
-      <div class="contact-links">
-        <a href="https://instagram.com/venkatraj07" target="_blank" class="btn contact-details"><i class="fa fa-instagram" style="font-size:80px"></i></a>
-        <a id="profile-link" href="https://www.linkedin.com/in/b-venkat/" target="_blank" class="btn contact-details"><i class="fa fa-linkedin fa_custom" style="font-size:80px"></i></a>
-        <a href="mailto:venkatraj.bachu98@gmail.com" class="btn contact-details"><i class="fa fa-envelope" style="font-size:80px;color:white"></i></a>
-      </div>
+    <section class="section" id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <a href="https://www.linkedin.com/in/venkatbachu/">LinkedIn</a>
     </section>
+  </main>
 
+  <script>
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
-    <footer>
-      <p>
-        VENKATRAJ BACHU
-      </p>
-    </footer>
+    if (!reducedMotion.matches) {
+      const bio = document.querySelector(".bio");
+      const intro = document.querySelector("#intro");
+      const animation = document.querySelector(".typing");
+      const typedText = animation.querySelector("p");
+      const skip = animation.querySelector("button");
+      const sentence = intro.textContent.split(". ", 1)[0] + ".";
+      const start = performance.now();
+      let frame;
 
+      function finish() {
+        cancelAnimationFrame(frame);
+        bio.classList.remove("is-typing");
+        if (document.activeElement === skip) intro.focus({ preventScroll: true });
+        animation.hidden = true;
+        reducedMotion.removeEventListener("change", finish);
+      }
 
+      function type(now) {
+        const count = Math.floor((now - start) / 23);
+        typedText.textContent = sentence.slice(0, count);
+        if (count >= sentence.length + 10) {
+          finish();
+          return;
+        }
+        frame = requestAnimationFrame(type);
+      }
 
+      skip.addEventListener("click", finish);
+      reducedMotion.addEventListener("change", finish);
+      animation.hidden = false;
+      bio.classList.add("is-typing");
+      frame = requestAnimationFrame(type);
+    }
+  </script>
 </body>
 </html>
