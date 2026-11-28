@@ -95,6 +95,16 @@
     .dates { margin-top: .25rem; color: var(--muted); }
     .accomplishments { padding-left: 1.25rem; max-width: 75ch; line-height: 1.7; }
     .accomplishments li + li { margin-top: .75rem; }
+    .experience-entry {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+    }
+    .experience-summary {
+      margin-top: .75rem;
+      max-width: 75ch;
+      line-height: 1.7;
+    }
     .technologies {
       display: flex;
       flex-wrap: wrap;
@@ -131,12 +141,112 @@
         border-radius: 50%;
       }
     }
+    .section-intro { margin-top: -.7rem; max-width: 65ch; color: var(--muted); line-height: 1.65; }
+    .line-icon { display: inline-flex; width: 1.35rem; color: var(--accent); flex: none; }
+    .line-icon svg { width: 100%; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 clamp(1.5rem, 5vw, 4rem);
+      list-style: none;
+      padding: 0;
+      margin: 1.75rem 0 0;
+    }
+    .principles li {
+      display: flex;
+      align-items: baseline;
+      gap: .85rem;
+      border-top: 1px solid var(--rule);
+      padding-block: 1.2rem;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.5;
+    }
+    .principles .line-icon { align-self: flex-start; margin-top: .18rem; }
+    .status-dot {
+      display: inline-block;
+      width: .65rem;
+      height: .65rem;
+      margin-inline-end: .65rem;
+      vertical-align: .18em;
+      border-radius: 50%;
+      background: #81cea2;
+    }
+    .status-list { max-width: 42rem; margin: 1.5rem 0 .75rem; }
+    .status-row {
+      display: grid;
+      grid-template-columns: 11rem minmax(0, 1fr);
+      gap: .45rem 1rem;
+      padding: .78rem .5rem;
+      border-bottom: 1px solid var(--rule);
+      line-height: 1.5;
+    }
+    .status-row dt { display: flex; align-items: center; gap: .65rem; color: var(--muted); }
+    .status-row dd { margin: 0; font-weight: 600; }
+    .updated { color: var(--muted); font-size: .9rem; }
+    .interests {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 2rem 1.25rem;
+      margin-top: 1.75rem;
+    }
+    .interests article { grid-column: span 2; }
+    .interests article:nth-child(3n + 1) { grid-column: span 3; }
+    .interest-photo {
+      display: grid;
+      place-items: center;
+      height: clamp(11rem, 23vw, 17rem);
+      border-radius: .5rem;
+      background: #203447;
+      color: var(--accent);
+      overflow: hidden;
+    }
+    .interest-photo .line-icon { width: 2.25rem; }
+    .interest-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .interests h3 { margin-top: .85rem; }
+    .interests p { margin-top: .35rem; color: var(--muted); line-height: 1.6; }
+    .status-row:hover { background: #172738; }
+    .interests article:hover .interest-photo { background: #294257; }
+    @media (prefers-reduced-motion: no-preference) {
+      .status-row, .interest-photo { transition: background-color .2s ease; }
+      .section-entered { animation: section-entrance .4s ease-out both; }
+      @keyframes section-entrance {
+        from { opacity: .75; transform: translateY(.45rem); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+    @media (max-width: 62rem) {
+      .interests { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .interests article, .interests article:nth-child(3n + 1) { grid-column: auto; }
+    }
+    @media (max-width: 47rem) {
+      .principles, .interests { grid-template-columns: 1fr; }
+      .interest-photo { height: auto; aspect-ratio: 4 / 3; }
+      .interest-photo img { object-fit: contain; }
+    }
+    @media (max-width: 32rem) {
+      .status-row { grid-template-columns: 1fr; }
+      .status-row dd { padding-inline-start: 2rem; }
+    }
+
+    .profile-links { display: flex; flex-wrap: wrap; gap: .65rem 1rem; margin-top: .9rem; }
+    .hero-links { margin-top: 1.25rem; }
+    .profile-link { display: inline-flex; align-items: center; gap: .4rem; }
+    .profile-link .line-icon { width: 1.1rem; color: inherit; }
+    .profile-note { margin-top: 1.5rem; }
+    .profile-note p { margin-top: .35rem; color: var(--muted); line-height: 1.5; }
+    .contact-groups { display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; }
+    @media (max-width: 47rem) {
+      .hero { grid-template-areas: "identity portrait" "bio bio" "links links"; }
+      .hero-links { grid-area: links; margin-top: 0; }
+    }
   </style>
 </head>
 <body>
   <header class="shell">
     <nav aria-label="Main navigation">
       <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#currently">Currently</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -155,6 +265,12 @@
             <p aria-hidden="true"></p>
             <button type="button">Skip animation</button>
           </div>
+        </div>
+        <div class="hero-links">
+          <div class="profile-links"><a class="profile-link" data-link="linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9h3v11H4zm0-5h3v3H4zm6 5h3v2c2-3 7-3 7 2v7h-3v-6c0-3-4-3-4 0v6h-3z" fill="currentColor" stroke="none"/></svg></span>LinkedIn</a>
+          <a class="profile-link" data-link="github" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.21.68-.48v-1.86c-2.78.61-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.6 9.6 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></span>GitHub</a>
+          <a class="profile-link" data-link="email"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>Email</a>
+          <a class="profile-link" data-link="resume" target="_blank" rel="noopener noreferrer" aria-label="Résumé (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v5h4M9 12h6m-6 4h6"/></svg></span>Résumé</a></div>
         </div>
       </div>
       <img class="portrait" src="./myPic.png" alt="Portrait of Venkatraj Bachu">
@@ -179,11 +295,176 @@
         <li>AutoSys</li>
         <li>REST APIs</li>
       </ul>
+
+      <article class="experience-entry">
+        <h3>FedEx Dataworks</h3>
+        <p class="role">Software Engineer</p>
+        <p class="dates">Jan 2023 – Apr 2024</p>
+        <p class="experience-summary">Worked on modernizing enterprise applications and distributed systems, with a focus on scalability, reliability, and real-time data processing.</p>
+        <ul class="accomplishments">
+          <li><strong>Event-Driven Architecture &amp; Cloud Modernization.</strong> Contributed to the migration of traditional processing workflows to an event-driven architecture using Apache Kafka and AWS. Built scalable backend services and asynchronous processing pipelines, reducing processing latency by up to 90% and system failures by 70% — because at FedEx, delays shouldn't happen in the codebase either.</li>
+          <li><strong>Backend Engineering &amp; Performance Optimization.</strong> Developed REST APIs and optimized backend services through Redis caching, database optimization, and efficient data processing. Reduced API response times from 4 seconds to 1.2 seconds, making applications faster and more responsive.</li>
+        </ul>
+        <ul class="technologies" role="list" aria-label="Technologies">
+          <li>Python</li>
+          <li>Django</li>
+          <li>Flask</li>
+          <li>AWS</li>
+          <li>Apache Kafka</li>
+          <li>Redis</li>
+          <li>Apache Airflow</li>
+          <li>Apache Spark</li>
+          <li>Terraform</li>
+          <li>Jenkins</li>
+        </ul>
+      </article>
+
+      <article class="experience-entry">
+        <h3>Tata Consultancy Services</h3>
+        <p class="role">Software Engineer | Client: PepsiCo – Quaker Canada</p>
+        <p class="dates">Jun 2019 – Jun 2021</p>
+        <p class="experience-summary">Worked on enterprise applications supporting supply chain, inventory management, and business operations, with a focus on backend development, system integration, and performance optimization.</p>
+        <ul class="accomplishments">
+          <li><strong>Enterprise Application Development &amp; Optimization.</strong> Developed and optimized backend services supporting ERP operations, reducing application resource consumption by 20%. Built scalable APIs and automated business workflows, making everyday operations more efficient and reliable.</li>
+          <li><strong>Event-Driven Systems &amp; Cloud Engineering.</strong> Implemented asynchronous messaging workflows using Apache Kafka and RabbitMQ, supporting the processing of over 25,000 messages daily. Contributed to cloud deployments, containerization, and automated testing — where I learned that getting code to work and getting it to work reliably are two very different things.</li>
+        </ul>
+        <ul class="technologies" role="list" aria-label="Technologies">
+          <li>Python</li>
+          <li>Java</li>
+          <li>Django</li>
+          <li>Flask</li>
+          <li>Spring Boot</li>
+          <li>SQL</li>
+          <li>AWS</li>
+          <li>Apache Kafka</li>
+          <li>RabbitMQ</li>
+          <li>Docker</li>
+          <li>Kubernetes</li>
+          <li>Jenkins</li>
+        </ul>
+      </article>
+
+      <article class="experience-entry">
+        <h3>Eliptico IT Solutions</h3>
+        <p class="role">Data Engineer · <span class="dates">May 2018 – Jun 2019</span></p>
+        <p class="role">IoT Developer Intern · <span class="dates">Jun 2017 – Feb 2018</span></p>
+        <p class="experience-summary">My first experience building solutions beyond the classroom, exploring the intersection of hardware, software, and data engineering.</p>
+        <ul class="accomplishments">
+          <li><strong>Data Engineering &amp; Pipeline Automation.</strong> Developed ETL pipelines using Apache NiFi to integrate data from multiple sources. Implemented data cleansing, validation, and transformation workflows, reducing manual processing and improving data quality for downstream analytics.</li>
+          <li><strong>IoT &amp; Connected Systems.</strong> Worked on an IoT-based inventory monitoring solution using embedded systems and cloud technologies. Integrated device-generated data with cloud services to support inventory visibility and monitoring — a project that introduced me to the possibilities of connecting the physical world with software.</li>
+        </ul>
+        <ul class="technologies" role="list" aria-label="Technologies">
+          <li>Python</li>
+          <li>SQL</li>
+          <li>PostgreSQL</li>
+          <li>Apache NiFi</li>
+          <li>AWS IoT</li>
+          <li>Embedded C</li>
+          <li>Samsung ARTIK</li>
+          <li>Power BI</li>
+        </ul>
+      </article>
     </section>
+
+    <section class="section" id="education" aria-labelledby="education-heading">
+      <h2 id="education-heading">Education</h2>
+      <article>
+        <h3>University of North Carolina at Charlotte</h3>
+        <p class="role">Master of Science in Computer Science</p>
+        <p class="dates">Graduated May 2023 · GPA: 3.90/4.00</p>
+        <p class="experience-summary">Deepened my understanding of computer science, software engineering, and scalable systems — turning theoretical concepts into practical engineering solutions.</p>
+      </article>
+      <article class="experience-entry">
+        <h3>Jawaharlal Nehru Technological University, Hyderabad</h3>
+        <p class="role">Bachelor of Technology in Electronics and Communication Engineering</p>
+        <p class="dates">Graduated May 2019</p>
+        <p class="experience-summary">Where my engineering journey began. Started with circuits and signals, developed an interest in programming, and eventually found myself building software for a living.</p>
+      </article>
+    </section>
+
+    <section class="section" id="toolbox" aria-labelledby="toolbox-heading">
+      <h2 id="toolbox-heading">Engineering Toolbox</h2>
+      <ul class="technologies" role="list" aria-label="Technologies">
+        <li>Python</li>
+        <li>Java</li>
+        <li>Flask</li>
+        <li>Spring Boot</li>
+        <li>PostgreSQL</li>
+        <li>AWS</li>
+        <li>Apache Kafka</li>
+        <li>Docker</li>
+      </ul>
+      <div class="profile-note">
+        <a class="profile-link" data-link="leetcode" target="_blank" rel="noopener noreferrer" aria-label="LeetCode (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m15 4-8 8a4 4 0 0 0 0 6l2 2a4 4 0 0 0 6 0l3-3M9 10a4 4 0 0 1 6 0l2 2m-7 2h10"/></svg></span>LeetCode</a>
+        <p>Solving problems, one edge case at a time.</p>
+      </div>
+    </section>
+
+    <section class="section personal-section" id="philosophy" aria-labelledby="philosophy-heading">
+      <h2 id="philosophy-heading">A Few Things I Believe In</h2>
+      <p class="section-intro">A few principles that shape how I build software and approach engineering.</p>
+      <ul class="principles" role="list">
+        <li><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/></svg></span>Complex problems don't necessarily need complex solutions.</li>
+        <li><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m7 9 3 3-3 3m6 0h4"/></svg></span>If I'm doing something repeatedly, there's probably a script waiting to be written.</li>
+        <li><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12h5l3-6 3 12 3-6h4"/></svg></span>The happy path is great. Production has other plans.</li>
+        <li><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 16a2 2 0 0 1-2 2H9l-5 3V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zM10 8a2 2 0 1 1 3 2c-1 1-1 1-1 2m0 3h.01"/></svg></span>Knowing when to ask a question is just as important as knowing the answer.</li>
+      </ul>
+    </section>
+
+    <section class="section personal-section" id="currently" aria-labelledby="currently-heading">
+      <h2 id="currently-heading"><span class="status-dot" aria-hidden="true"></span>Currently...</h2>
+      <p class="section-intro">A little snapshot of what I'm up to these days.</p>
+      <dl class="status-list"></dl>
+      <p class="updated">Last updated: <time id="status-date"></time></p>
+    </section>
+
+    <section class="section personal-section" id="beyond-the-code" aria-labelledby="beyond-heading">
+      <h2 id="beyond-heading">Beyond the Code</h2>
+      <p class="section-intro">When I'm not staring at a terminal, I'm probably somewhere with questionable cell reception and a pretty good view.</p>
+      <div class="interests">
+        <article>
+          <div class="interest-photo mountains" data-photo="mountains.jpg" aria-hidden="true"></div>
+          <h3>Mountains &amp; Hiking</h3>
+          <p>Mountains, hiking trails, and the occasional questionable adventure.</p>
+        </article>
+        <article>
+          <div class="interest-photo roads" data-photo="road-trips.jpg" aria-hidden="true"></div>
+          <h3>Road Trips</h3>
+          <p>Long drives, spontaneous road trips, and absolutely unnecessary detours.</p>
+        </article>
+        <article>
+          <div class="interest-photo coffee" data-photo="coffee-and-chai.jpg" aria-hidden="true"></div>
+          <h3>Coffee, Chai &amp; Tiramisu</h3>
+          <p>Good coffee, tiramisu, and a strong opinion on why chai isn't just tea.</p>
+        </article>
+        <article>
+          <div class="interest-photo guitar" data-photo="guitar.jpg" aria-hidden="true"></div>
+          <h3>Guitar</h3>
+          <p>Guitar. Still in development. Definitely not production-ready.</p>
+        </article>
+      </div>
+      <div class="profile-note">
+        <a class="profile-link" data-link="instagram" target="_blank" rel="noopener noreferrer" aria-label="Life outside the IDE on Instagram (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></span>Life outside the IDE</a>
+        <p>More mountains, fewer stack traces.</p>
+      </div>
+    </section>
+
 
     <section class="section" id="contact" aria-labelledby="contact-heading">
       <h2 id="contact-heading">Contact</h2>
-      <a href="https://www.linkedin.com/in/venkatbachu/">LinkedIn</a>
+      <div class="contact-groups">
+        <div>
+          <h3>Professional</h3>
+          <div class="profile-links"><a class="profile-link" data-link="linkedin" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9h3v11H4zm0-5h3v3H4zm6 5h3v2c2-3 7-3 7 2v7h-3v-6c0-3-4-3-4 0v6h-3z" fill="currentColor" stroke="none"/></svg></span>LinkedIn</a>
+          <a class="profile-link" data-link="github" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.21.68-.48v-1.86c-2.78.61-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.64-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.6 9.6 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></span>GitHub</a>
+          <a class="profile-link" data-link="leetcode" target="_blank" rel="noopener noreferrer" aria-label="LeetCode (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m15 4-8 8a4 4 0 0 0 0 6l2 2a4 4 0 0 0 6 0l3-3M9 10a4 4 0 0 1 6 0l2 2m-7 2h10"/></svg></span>LeetCode</a>
+          <a class="profile-link" data-link="email"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>Email</a></div>
+        </div>
+        <div>
+          <h3>Personal</h3>
+          <div class="profile-links"><a class="profile-link" data-link="instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)"><span class="line-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></span>Instagram</a></div>
+        </div>
+      </div>
     </section>
   </main>
 
@@ -224,6 +505,68 @@
       bio.classList.add("is-typing");
       frame = requestAnimationFrame(type);
     }
+    const icons = {
+      work: '<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4h8v3M3 13h18"/>',
+      systems: '<circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="m11 7-5 9m7-9 5 9M7 18h10"/>',
+      pin: '<path d="M19 9c0 5-7 11-7 11S5 14 5 9a7 7 0 1 1 14 0Z"/><circle cx="12" cy="9" r="2"/>',
+      guitar: '<path d="m14 10 6-6 2 2-6 6c2 3-2 8-5 8a4 4 0 0 1-4-4c0-3 4-7 7-6Z"/><circle cx="12" cy="15" r="1.5"/>',
+      mountains: '<path d="m2 19 7-12 4 7 3-5 6 10z"/>',
+      roads: '<path d="M7 21 10 3m4 0 3 18M12 6v2m0 3v2m0 3v2"/>',
+      coffee: '<path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 9h2a2 2 0 0 1 0 4h-2M8 3v2m5-2v2"/>'
+    };
+
+    const currentStatus = {
+      updated: { iso: "2026-11", label: "November 2026" },
+      activities: [
+        { icon: "work", label: "Working at", value: "Bank of America, as a Software Engineer 2" },
+        { icon: "systems", label: "Exploring", value: "Distributed systems and production reliability" },
+        { icon: "pin", label: "Based in", value: "Dallas, Texas" },
+        { icon: "guitar", label: "Learning", value: "How to make a guitar sound like a guitar" },
+        { icon: "mountains", label: "On my bucket list", value: "A canyon rope swing in Moab, Utah" }
+      ]
+    };
+
+    function lineIcon(name) {
+      const icon = document.createElement("span");
+      icon.className = "line-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.innerHTML = '<svg viewBox="0 0 24 24">' + icons[name] + '</svg>';
+      return icon;
+    }
+
+    const statusList = document.querySelector(".status-list");
+    for (const activity of currentStatus.activities) {
+      const row = document.createElement("div");
+      row.className = "status-row";
+      const label = document.createElement("dt");
+      label.append(lineIcon(activity.icon), activity.label);
+      const value = document.createElement("dd");
+      value.textContent = activity.value;
+      row.append(label, value);
+      statusList.append(row);
+    }
+    const statusDate = document.querySelector("#status-date");
+    statusDate.dateTime = currentStatus.updated.iso;
+    statusDate.textContent = currentStatus.updated.label;
+
+    for (const photo of document.querySelectorAll(".interest-photo[data-photo]")) {
+      const iconName = photo.classList.item(1);
+      photo.append(lineIcon(iconName));
+    }
+
+    if (!reducedMotion.matches && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("section-entered");
+            observer.unobserve(entry.target);
+          }
+        }
+      });
+      document.querySelectorAll(".personal-section").forEach((section) => observer.observe(section));
+    }
+
   </script>
+  <script src="./links.js" defer></script>
 </body>
 </html>
